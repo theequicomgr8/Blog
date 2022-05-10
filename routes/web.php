@@ -13,4 +13,8 @@ Route::post('/login',[UserController::class,'login'])->name('user.login');
 
 Route::group(["middleware"=>'myauth'],function(){
     Route::get('/profile',[UserController::class,'profile'])->name('user.profile');
+    Route::post('/student-save',[UserController::class,'student_save'])->name('student.save');
+    Route::get('/getState',[UserController::class,'getState'])->name('getState');
+    Route::get('/getCity',[UserController::class,'getCity'])->name('getCity');
+    Route::get('/logout',[UserController::class,'logout'])->name('logout');
 });
