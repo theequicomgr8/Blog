@@ -79,18 +79,21 @@ class UserController extends Controller
         $email=Session::get('user');
         $countries=DB::table('countries')->get();
         $studentdata=DB::table('students as student')
-                ->select('student.name as sname','student.email as semail','country.id as cid','country.id as country_id','country.name as country_name','state.id as state_id','state.name as state_name','city.id as city_id','city.name as city_name')
+                ->select('student.name as sname','student.id as sid','student.email as semail','country.id as cid','country.id as country_id','country.name as country_name','state.id as state_id','state.name as state_name','city.id as city_id','city.name as city_name')
                 ->leftJoin('countries as country','country.id','=','student.country')
                 ->leftJoin('states as state','state.id','=','student.state')
                 ->leftJoin('cities as city','city.id','=','student.city')
                 ->where("email",$email)
                 ->first();
         $country_id=@$studentdata->country_id;
-        $state_id=@$studentdata->state_id;
+        $state_id=@$studentdata->state_id;       
         $statefetch=DB::table('states')->where('country_id',$country_id)->get();
         $cityfetch=DB::table('cities')->where('state_id',$state_id)->get();
+
+        $student_id=@$studentdata->sid;
+        $mobiles=DB::table('mobiles')->where("student_id",$student_id)->get();
         // dd($cityfetch);
-        return view('profile',compact('countries','studentdata','statefetch','cityfetch'));
+        return view('profile',compact('countries','studentdata','statefetch','cityfetch','mobiles'));
     }
 
     public function getState(Request $request)
@@ -137,8 +140,21 @@ class UserController extends Controller
             "city"=>$request->city
         ];
         $student=DB::table('students')->insert($data);
-            Session::flash('success',"Student Data Save Successfully");
-            return redirect()->route('user.profile');
+
+        $getid=DB::table('students')->orderBy('id','desc')->first();
+        $student_id=$getid->id;
+
+        foreach($request->mobile as $key => $value)
+        {
+            $mobile=array(
+                "student_id"=>$student_id,
+                "mobile"=>$request->mobile[$key]
+            );
+            DB::table('mobiles')->insert($mobile);
+        }
+
+        Session::flash('success',"Student Data Save Successfully");
+        return redirect()->route('user.profile');
         
     }
 

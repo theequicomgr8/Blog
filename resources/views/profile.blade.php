@@ -91,7 +91,25 @@
 					<span class="text-danger">{{$message}}</span>
 				@enderror
 			</div><br>
-			<input type="submit" value="Save" class="btn btn-info">
+
+			<div class="col-xl-3" id="myid">
+				@foreach($mobiles as $key => $mob)
+				<div class="col-xl-11" style="float: left;">
+					<div class="form-group">
+						<label>Mobile : </label>
+						<input type="text" name="mobile[]" class="form-control form-control-sm" value="{{ $mob->mobile }}">
+					</div>
+				</div>
+				@endforeach
+				<div class="col-xl-1" style="float: right;"><br>
+					<button class="btn btn-info" id="add">Add</button>
+				</div>
+			</div>
+
+			<div class="col-xl-3">
+				<input type="submit" value="Save" class="btn btn-info mt-4">
+			</div>
+			<!-- <input type="submit" value="Save" class="btn btn-info"> -->
 		</form>
 	</div>
 </div>
@@ -127,6 +145,21 @@
 					$("#city").append(data);
 				}
 			});
+		});
+
+
+		var i=1;
+		$(document).on("click","#add",function(e){
+			e.preventDefault();
+			i++;
+			var html='<div class="col-xl-12" id="row'+i+'"><div class="form-group"><label>Mobile : </label><input type="text" name="mobile[]" class="form-control form-control-sm"></div><div class="col-xl-1" style="float: right; margin-left:41px; margin-top:-38px;"><button class="btn btn-danger remove" data-eid="'+i+'">X</button></div></div>';
+				$("#myid").append(html);
+		});
+
+		$(document).on("click",".remove",function(e){
+			e.preventDefault();
+			var id=$(this).attr('data-eid');
+			$("#row"+id).remove();
 		});
 	});
 </script>
