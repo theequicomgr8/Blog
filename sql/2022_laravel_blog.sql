@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2022 at 07:37 PM
+-- Generation Time: May 11, 2022 at 06:41 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -2664,7 +2664,30 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2022_05_06_101701_create_students_table', 1),
 (6, '2022_05_10_160703_add_students_table', 2),
-(7, '2022_05_10_164205_add_userid_students_table', 3);
+(7, '2022_05_10_164205_add_userid_students_table', 3),
+(8, '2022_05_11_161247_create_mobiles_table', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mobiles`
+--
+
+CREATE TABLE `mobiles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mobiles`
+--
+
+INSERT INTO `mobiles` (`id`, `student_id`, `mobile`, `created_at`, `updated_at`) VALUES
+(1, '104', '1111111111', NULL, NULL),
+(2, '104', '2222222222', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6930,7 +6953,8 @@ INSERT INTO `students` (`id`, `name`, `email`, `mobile`, `created_at`, `updated_
 (99, 'Jakob Stracke', 'cassidy03@example.com', '283-782-8231', '2022-05-09 10:08:31', '2022-05-09 10:08:31', '', '', ''),
 (100, 'Chyna Wisoky', 'schuppe.rosina@example.com', '1-706-560-7522', '2022-05-09 10:08:31', '2022-05-09 10:08:31', '', '', ''),
 (102, 'Neha', 'nehaneshi@gmail.com', NULL, NULL, NULL, '101', '5', '563'),
-(103, 'suman', 'suman.krgr8@gmail.com', NULL, NULL, NULL, '101', '5', '449');
+(103, 'suman', 'suman.krgr8@gmail.com', NULL, NULL, NULL, '101', '5', '449'),
+(104, 'juhi', 'juhi@gmail.com', NULL, NULL, NULL, '101', '5', '563');
 
 -- --------------------------------------------------------
 
@@ -7055,7 +7079,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (99, 'Rubye Heathcote', 'roderick82@example.net', '2022-05-09 09:32:21', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'tmSsvGQcpw', '2022-05-09 09:32:29', '2022-05-09 09:32:29'),
 (100, 'Taylor Haag', 'xturcotte@example.com', '2022-05-09 09:32:21', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VzTQHr18KE', '2022-05-09 09:32:29', '2022-05-09 09:32:29'),
 (105, 'neha', 'nehaneshi@gmail.com', NULL, '$2y$10$wf7H/8v5aV4gfXvgPVtJMe373wqiumVayzsOiFGsUOHY5RgCwMopW', NULL, NULL, NULL),
-(107, 'suman', 'suman.krgr8@gmail.com', NULL, '$2y$10$BR84vSPugg9MGDhZ4Jz6Fuiq.TkumX3yZqBgBvpfzkxpInAC5nuKS', NULL, NULL, NULL);
+(107, 'suman', 'suman.krgr8@gmail.com', NULL, '$2y$10$BR84vSPugg9MGDhZ4Jz6Fuiq.TkumX3yZqBgBvpfzkxpInAC5nuKS', NULL, NULL, NULL),
+(108, 'juhi', 'juhi@gmail.com', NULL, '$2y$10$KAnSP1nxF1C0AJkbJQ3UL.z3Q4tFpZE4ALRiS1GQ3X5GHhiR8YeKG', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -7084,6 +7109,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mobiles`
+--
+ALTER TABLE `mobiles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -7145,7 +7176,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `mobiles`
+--
+ALTER TABLE `mobiles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -7163,13 +7200,13 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
